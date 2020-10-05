@@ -1,0 +1,99 @@
+FICHIER FORM:
+<form  action="thanks.php"  method="post">
+    <div>
+        <label  for="nom">Nom :</label>
+        <input  type="text"  id="nom"  name="user_last_name" required>
+    </div>
+    <div>
+        <label  for="prenom">Prénom :</label>
+        <input  type="text"  id="prenom"  name="user_first_name" required>
+    </div>
+    <div>
+        <label  for="e_mail">E-mail :</label>
+        <input  type="email"  id="e_mail"  name="user_email" required>
+    </div>
+    <div>
+        <label  for="phone_number">Téléphone :</label>
+        <input  type="number"  id="phone_number"  name="user_phonenumber" required>
+    </div>
+    <div>
+        <label  for="subject">Sujet :</label>
+        <select name="subject" size="1">
+            <option>Ton inscription</option>
+            <option>Ta démission</option>
+            <option>Ton entretien</option>
+        </select>
+    </div>
+    <div>
+        <label  for="message">Message :</label>
+        <textarea  id="message"  name="user_message"></textarea>
+    </div>
+    <div  class="button">
+        <input  type="submit">Envoyer votre message</input>
+    </div>
+</form>
+
+FICHIER THANKS:
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<p>
+    <?php
+    $userLastNameErr = $userFirstNameErr = $emailErr = $phoneNumberErr = "";
+    $userLastName = $userFirstName = $email = $phoneNumber = $comment = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["user_last_name"])) {
+            $userLastNameErr = "Last Name is required";
+        } else {
+            $userLastName = ($_POST["user_last_name"]);
+        }
+        if (empty($_POST["user_first_name"])) {
+            $userFirstNameErr = "Name is required";
+        } else {
+            $userFirstName = ($_POST["user_first_name"]);
+        }
+        if (empty($_POST["user_email"])) {
+            $emailErr = "Email is required";
+        } else {
+            $email = ($_POST["user_email"]);
+            // check if e-mail address is well-formed
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "Invalid email format";
+            }
+        }
+
+        if (empty($_POST["comment"])) {
+            $comment = "";
+        } else {
+            $comment = ($_POST["comment"]);
+        }
+
+        if (empty($_POST["user_phonenumber"])) {
+            $phoneNumberErr = "Phone Number is required";
+        } else {
+            $phoneNumber = ($_POST["user_phonenumber"]);
+        }
+
+    }
+        echo 'Merci ' . $_POST['user_first_name'] . '  ' . $_POST['user_last_name'] . 'de nous avoir contacté à propos de ' . $_POST['subject'] . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . $_POST['user_email'] . 'ou par téléphone au ' . $_POST['user_phonenumber'] . 'dans les plus brefs délais pour traiter votre demande : ' . $_POST['user_message'];
+
+
+
+    ?>
+    <h2>Merci!</h2>
+    <br>
+    <?php echo $userLastNameErr ?> <br>
+    <?php echo $userFirstNameErr ?> <br>
+    <?php echo $emailErr ?> <br>
+    <?php echo $phoneNumberErr ?> <br>
+</p>
+</body>
+</html>

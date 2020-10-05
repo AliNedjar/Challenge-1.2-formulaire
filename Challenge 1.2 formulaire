@@ -2,19 +2,19 @@ FICHIER FORM:
 <form  action="thanks.php"  method="post">
     <div>
         <label  for="nom">Nom :</label>
-        <input  type="text"  id="nom"  name="user_last_name">
+        <input  type="text"  id="nom"  name="user_last_name" required>
     </div>
     <div>
         <label  for="prenom">Prénom :</label>
-        <input  type="text"  id="prenom"  name="user_first_name">
+        <input  type="text"  id="prenom"  name="user_first_name" required>
     </div>
     <div>
         <label  for="e_mail">E-mail :</label>
-        <input  type="email"  id="e_mail"  name="user_email">
+        <input  type="email"  id="e_mail"  name="user_email" required>
     </div>
     <div>
         <label  for="phone_number">Téléphone :</label>
-        <input  type="number"  id="phone_number"  name="user_phonenumber">
+        <input  type="number"  id="phone_number"  name="user_phonenumber" required>
     </div>
     <div>
         <label  for="subject">Sujet :</label>
@@ -26,7 +26,7 @@ FICHIER FORM:
     </div>
     <div>
         <label  for="message">Message :</label>
-        <textarea  id="message"  name="user_message"></textarea>
+        <textarea  id="message"  name="user_message" required></textarea>
     </div>
     <div  class="button">
         <input  type="submit">Envoyer votre message</input>

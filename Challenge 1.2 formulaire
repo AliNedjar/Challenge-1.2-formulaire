@@ -34,6 +34,7 @@ FICHIER FORM:
 </form>
 
 FICHIER THANKS:
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -46,54 +47,37 @@ FICHIER THANKS:
 <body>
 <p>
     <?php
-    $userLastNameErr = $userFirstNameErr = $emailErr = $phoneNumberErr = "";
-    $userLastName = $userFirstName = $email = $phoneNumber = $comment = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST["user_last_name"])) {
-            $userLastNameErr = "Last Name is required";
-        } else {
-            $userLastName = ($_POST["user_last_name"]);
-        }
         if (empty($_POST["user_first_name"])) {
-            $userFirstNameErr = "Name is required";
-        } else {
-            $userFirstName = ($_POST["user_first_name"]);
-        }
-        if (empty($_POST["user_email"])) {
-            $emailErr = "Email is required";
-        } else {
-            $email = ($_POST["user_email"]);
-            // check if e-mail address is well-formed
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $emailErr = "Invalid email format";
-            }
-        }
 
-        if (empty($_POST["comment"])) {
-            $comment = "";
-        } else {
-            $comment = ($_POST["comment"]);
-        }
+            echo "ERROR : First Name is required";
 
-        if (empty($_POST["user_phonenumber"])) {
-            $phoneNumberErr = "Phone Number is required";
-        } else {
-            $phoneNumber = ($_POST["user_phonenumber"]);
-        }
+        } elseif (empty($_POST["user_last_name"])) {
 
+            echo "ERROR : Last Name is required";
+
+        } elseif (empty($_POST["user_email"])) {
+
+            echo "ERROR : Email is required";
+
+        } elseif (!filter_var($_POST["user_email"], FILTER_VALIDATE_EMAIL)) {
+
+            echo "ERROR : invalid email format";
+
+        } elseif (empty($_POST["user_phonenumber"])) {
+
+            echo "ERROR : Phone Number is required";
+
+        } elseif (empty($_POST["user_message"])) {
+
+            echo "ERROR : Message is required";
+
+        } else {
+            echo 'Merci ' . $_POST['user_first_name'] . '  ' . $_POST['user_last_name'] . ' ' . 'de nous avoir contacté à propos de ' . $_POST['subject'] . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . $_POST['user_email'] . 'ou par téléphone au ' . $_POST['user_phonenumber'] . ' ' . 'dans les plus brefs délais pour traiter votre demande : ' . $_POST['user_message'];        }
     }
-        echo 'Merci ' . $_POST['user_first_name'] . '  ' . $_POST['user_last_name'] . 'de nous avoir contacté à propos de ' . $_POST['subject'] . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . $_POST['user_email'] . 'ou par téléphone au ' . $_POST['user_phonenumber'] . 'dans les plus brefs délais pour traiter votre demande : ' . $_POST['user_message'];
-
-
-
-    ?>
-    <h2>Merci!</h2>
-    <br>
-    <?php echo $userLastNameErr ?> <br>
-    <?php echo $userFirstNameErr ?> <br>
-    <?php echo $emailErr ?> <br>
-    <?php echo $phoneNumberErr ?> <br>
+        ?>
 </p>
 </body>
 </html>
+

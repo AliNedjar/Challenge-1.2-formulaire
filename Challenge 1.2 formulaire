@@ -34,7 +34,6 @@ FICHIER FORM:
 </form>
 
 FICHIER THANKS:
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -51,32 +50,38 @@ FICHIER THANKS:
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["user_first_name"])) {
 
-            echo "ERROR : First Name is required";
+            echo "ERROR : First Name is required ";
 
-        } elseif (empty($_POST["user_last_name"])) {
+        }
+        if (empty($_POST["user_last_name"])) {
 
-            echo "ERROR : Last Name is required";
+            echo "ERROR : Last Name is required ";
 
-        } elseif (empty($_POST["user_email"])) {
+        }
+        if (empty($_POST["user_email"])) {
 
-            echo "ERROR : Email is required";
+            echo "ERROR : Email is required ";
 
-        } elseif (!filter_var($_POST["user_email"], FILTER_VALIDATE_EMAIL)) {
+        }
+        if (!filter_var($_POST["user_email"], FILTER_VALIDATE_EMAIL)) {
 
-            echo "ERROR : invalid email format";
+            echo "ERROR : invalid email format ";
 
-        } elseif (empty($_POST["user_phonenumber"])) {
+        }
+        if (empty($_POST["user_phonenumber"])) {
 
-            echo "ERROR : Phone Number is required";
+            echo "ERROR : Phone Number is required ";
 
-        } elseif (empty($_POST["user_message"])) {
+        }
+        if (empty($_POST["user_message"])) {
 
-            echo "ERROR : Message is required";
+            echo "ERROR : Message is required ";
 
         } else {
-            echo 'Merci ' . $_POST['user_first_name'] . '  ' . $_POST['user_last_name'] . ' ' . 'de nous avoir contacté à propos de ' . $_POST['subject'] . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . $_POST['user_email'] . 'ou par téléphone au ' . $_POST['user_phonenumber'] . ' ' . 'dans les plus brefs délais pour traiter votre demande : ' . $_POST['user_message'];        }
+            echo 'Merci ' . $_POST['user_first_name'] . '  ' . $_POST['user_last_name'] . ' ' . 'de nous avoir contacté à propos de ' . $_POST['subject'] . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . $_POST['user_email'] . 'ou par téléphone au ' . $_POST['user_phonenumber'] . ' ' . 'dans les plus brefs délais pour traiter votre demande : ' . $_POST['user_message'];
+        }
     }
-        ?>
+    ?>
 </p>
 </body>
 </html>

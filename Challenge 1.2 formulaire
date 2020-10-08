@@ -33,6 +33,7 @@ FICHIER FORM:
     </div>
 </form>
 
+
 FICHIER THANKS:
 <!doctype html>
 <html lang="en">
@@ -48,41 +49,56 @@ FICHIER THANKS:
     <?php
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST["user_first_name"])) {
-
-            echo "ERROR : First Name is required ";
-
-        }
-        if (empty($_POST["user_last_name"])) {
-
-            echo "ERROR : Last Name is required ";
-
-        }
-        if (empty($_POST["user_email"])) {
-
-            echo "ERROR : Email is required ";
-
-        }
-        if (!filter_var($_POST["user_email"], FILTER_VALIDATE_EMAIL)) {
-
-            echo "ERROR : invalid email format ";
-
-        }
-        if (empty($_POST["user_phonenumber"])) {
-
-            echo "ERROR : Phone Number is required ";
-
-        }
-        if (empty($_POST["user_message"])) {
-
-            echo "ERROR : Message is required ";
-
-        } else {
-            echo 'Merci ' . $_POST['user_first_name'] . '  ' . $_POST['user_last_name'] . ' ' . 'de nous avoir contacté à propos de ' . $_POST['subject'] . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . $_POST['user_email'] . 'ou par téléphone au ' . $_POST['user_phonenumber'] . ' ' . 'dans les plus brefs délais pour traiter votre demande : ' . $_POST['user_message'];
-        }
+    foreach ($_POST as $name => $input) {
+        $data[$name] = trim($input);
     }
+
+    if (empty($data["user_first_name"])) {
+
+        $errors[] = 'ERROR : First Name is required ';
+
+    }
+    if (empty($data["user_last_name"])) {
+
+        $errors[] = 'ERROR : Last Name is required ';
+
+    }
+    if (empty($data["user_email"])) {
+
+        $errors[] = 'ERROR : Email is required ';
+
+    }
+    if (!filter_var($data["user_email"], FILTER_VALIDATE_EMAIL)) {
+
+        $errors[] = 'ERROR : invalid email format ';
+
+    }
+    if (empty($data["user_phonenumber"])) {
+
+        $errors[] = 'ERROR : Phone Number is required ';
+
+    }
+    if (empty($data["user_message"])) {
+
+        $errors[] = 'ERROR : Message is required ';
+
+        
+    }
+    if (!empty($errors)) { ?>
+    <ul> <?php
+    foreach ($errors as $error) { ?>
+        <li><?= $error ?></li> <?php
+
+    } ?>
     ?>
+</ul> <?php
+
+} else {
+    echo 'Merci' . ' ' . htmlentities($_POST['user_first_name']) . '  ' . htmlentities($_POST['user_last_name']) . ' ' . 'de nous avoir contacté à propos de ' . htmlentities($_POST['subject']) . '. ' . 'Un de nos conseiller vous contactera soit à l’adresse ' . htmlentities($_POST['user_email']) . ' ou par téléphone au ' . htmlentities($_POST['user_phonenumber']) . ' ' . 'dans les plus brefs délais pour traiter votre demande : ' . htmlentities($_POST['user_message']);
+}
+}
+?>
+
 </p>
 </body>
 </html>
-
